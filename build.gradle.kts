@@ -3,7 +3,6 @@ import com.lagradost.cloudstream3.gradle.CloudstreamExtension
 import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
-import java.util.Properties
 
 buildscript {
     repositories {
@@ -13,7 +12,7 @@ buildscript {
     }
 
     dependencies {
-        // الإصدارات الحديثة المتوافقة مع السيرفر
+        // الإصدارات الحديثة والمستقرة المتوافقة مع السيرفر
         classpath("com.android.tools.build:gradle:8.13.2")
         classpath("com.github.recloudstream.gradle:gradle:81b1d424d")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.3.0")
@@ -28,9 +27,11 @@ allprojects {
     }
 }
 
-fun Project.cloudstream(configuration: CloudstreamExtension.() -> Unit) = extensions.getByName<CloudstreamExtension>("cloudstream").configuration()
+fun Project.cloudstream(configuration: CloudstreamExtension.() -> Unit) = 
+    extensions.getByName<CloudstreamExtension>("cloudstream").configuration()
 
-fun Project.android(configuration: BaseExtension.() -> Unit) = extensions.getByName<BaseExtension>("android").configuration()
+fun Project.android(configuration: BaseExtension.() -> Unit) = 
+    extensions.getByName<BaseExtension>("android").configuration()
 
 subprojects {
     apply(plugin = "com.android.library")
@@ -38,7 +39,7 @@ subprojects {
     apply(plugin = "com.lagradost.cloudstream3.gradle")
 
     cloudstream {
-        // هنا قمت بتغيير الرابط ليكون خاصاً بمستودعك أنت لكي ترفع الملفات عليه
+        // تحديد رابط مستودعك الخاص لرفع الإضافات
         setRepo("https://github.com/Bash4QI/mytest")
         authors = listOf("Bash4QI")
     }
@@ -57,6 +58,7 @@ subprojects {
             targetCompatibility = JavaVersion.VERSION_1_8
         }
 
+        // الكود الحديث البديل لـ kotlinOptions المتوافق مع Kotlin 2.3+
         tasks.withType<KotlinJvmCompile> {
             compilerOptions {
                 jvmTarget.set(JvmTarget.JVM_1_8)
@@ -75,6 +77,7 @@ subprojects {
         val cloudstream by configurations
         cloudstream("com.lagradost:cloudstream3:pre-release")
 
+        // المكتبات الأساسية لعمل الإضافات بشكل مستقر
         implementation(kotlin("stdlib"))
         implementation("com.github.Blatzar:NiceHttp:0.4.16")
         implementation("org.jsoup:jsoup:1.22.1")
