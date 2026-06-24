@@ -40,7 +40,7 @@ subprojects {
 
     cloudstream {
         // تحديد رابط مستودعك الخاص لرفع الإضافات
-        setRepo("https://github.com/Bash4QI/mytest")
+        setRepo("https://github.com/Bash4QI/TestPlugins")
         authors = listOf("Bash4QI")
     }
 
