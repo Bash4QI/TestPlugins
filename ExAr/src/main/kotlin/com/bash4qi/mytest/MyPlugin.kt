@@ -8,20 +8,13 @@ class MyPlugin : MainAPI() {
     override var mainUrl = "https://example.com"
     override var name = "ExAr"
     override val hasMainPage = true
-    override val supportedTypes = setOf(
-        TvType.Movie,
-        TvType.TvSeries
-    )
+    override val supportedTypes = setOf(TvType.Movie, TvType.TvSeries)
 
-    override suspend fun getMainPage(
-        page: Int,
-        request: MainPageRequest
-    ): HomePageResponse {
-        val doc = app.get("$mainUrl/").document
+    override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse {
+        val doc = app.get(mainUrl).document
         val home = ArrayList<HomePageList>()
         
-        // Example: Scrape trending movies
-        val trending = doc.select(".trending-item").mapNotNull {
+        val items = doc.select(".movie-item").mapNotNull {
             val title = it.select(".title").text()
             val url = it.select("a").attr("href")
             val img = it.select("img").attr("src")
@@ -33,8 +26,8 @@ class MyPlugin : MainAPI() {
             } else null
         }
         
-        if (trending.isNotEmpty()) {
-            home.add(HomePageList("Trending", trending))
+        if (items.isNotEmpty()) {
+            home.add(HomePageList("Movies", items))
         }
         
         return HomePageResponse(home)
@@ -48,7 +41,7 @@ class MyPlugin : MainAPI() {
         val poster = doc.select(".poster img").attr("src")
         val year = doc.select(".year").text().toIntOrNull()
         
-        val episodes = doc.select(".episode-link").mapNotNull { 
+        val episodes = doc.select(".episode-link").mapNotNull {
             val epUrl = it.attr("href")
             val epName = it.text()
             if (epUrl.isNotBlank()) {
@@ -73,7 +66,7 @@ class MyPlugin : MainAPI() {
 
     override suspend fun search(query: String): List<SearchResponse> {
         val doc = app.get("$mainUrl/search?q=$query").document
-        return doc.select(".search-result").mapNotNull {
+        return doc.select(".result").mapNotNull {
             val title = it.select(".title").text()
             val url = it.select("a").attr("href")
             val img = it.select("img").attr("src")
