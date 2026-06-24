@@ -43,19 +43,11 @@ class MyPlugin : MainAPI() {
     override suspend fun load(url: String): LoadResponse {
         val doc = app.get(url).document
         
-        // Extract title
         val title = doc.select("h1.title").text()
-        
-        // Extract description
         val description = doc.select(".description").text()
-        
-        // Extract poster
         val poster = doc.select(".poster img").attr("src")
-        
-        // Extract year
         val year = doc.select(".year").text().toIntOrNull()
         
-        // Extract episodes/sources
         val episodes = doc.select(".episode-link").mapNotNull { 
             val epUrl = it.attr("href")
             val epName = it.text()
