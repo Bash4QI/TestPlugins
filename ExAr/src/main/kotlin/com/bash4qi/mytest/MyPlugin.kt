@@ -2,7 +2,20 @@ package com.bash4qi.mytest
 
 import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.utils.*
+import com.lagradost.cloudstream3.plugins.CloudstreamPlugin
+import com.lagradost.cloudstream3.plugins.Plugin
+import android.content.Context
 
+// 1. كلاس التمهيد الأساسي الذي يطلبه السيرفر لربط البلجن بالتطبيق
+@CloudstreamPlugin
+class MyPluginInstance: Plugin() {
+    override fun load(context: Context) {
+        // تسجيل كلاس الموفر الرئيسي الخاص بك هنا عند تشغيل البلجن
+        registerMainAPI(MyPlugin())
+    }
+}
+
+// 2. كلاس الموفر الخاص بك (كود جلب المواقع والأفلام)
 class MyPlugin : MainAPI() {
     override var mainUrl = "https://example.com"
     override var name = "ExAr"
@@ -29,7 +42,6 @@ class MyPlugin : MainAPI() {
             home.add(HomePageList("Movies", items))
         }
 
-        // الإصلاح الأول: استخدام الطريقة الحديثة لتمرير الصفحة الرئيسية
         return newHomePageResponse(home, false)
     }
 
@@ -45,7 +57,6 @@ class MyPlugin : MainAPI() {
             val epUrl = it.attr("href")
             val epName = it.text()
             if (epUrl.isNotBlank()) {
-                // الإصلاح الثاني: استخدام دالة newEpisode بدلاً من الاستدعاء المباشر
                 newEpisode(epUrl) {
                     this.name = epName
                 }
