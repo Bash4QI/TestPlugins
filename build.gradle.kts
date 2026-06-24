@@ -54,8 +54,4 @@ subprojects {
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16.0")
         implementation("com.fasterxml.jackson.core:jackson-databind:2.16.0")
     }
-
-    cloudstream {
-        repository = System.getenv("Bash4QI/TestPlugins") ?: "اسم-اليوزر-حقك/TestPlugins"
-    }
 }
