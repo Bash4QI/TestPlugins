@@ -41,6 +41,7 @@ subprojects {
             jvmTarget = "1.8"
         }
     }
+}
 
     dependencies {
         compileOnly("com.lagradost:cloudstream3:pre-release")
