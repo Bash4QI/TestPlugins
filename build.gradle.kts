@@ -56,6 +56,6 @@ subprojects {
     }
 
     cloudstream {
-        repository = System.getenv("GITHUB_REPOSITORY") ?: "اسم-اليوزر-حقك/TestPlugins"
+        repository = System.getenv("Bash4QI/TestPlugins") ?: "اسم-اليوزر-حقك/TestPlugins"
     }
 }
