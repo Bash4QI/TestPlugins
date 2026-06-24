@@ -2,7 +2,6 @@ package com.bash4qi.mytest
 
 import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.utils.*
-import org.jsoup.Jsoup
 
 class MyPlugin : MainAPI() {
     override var mainUrl = "https://example.com"
@@ -13,42 +12,46 @@ class MyPlugin : MainAPI() {
     override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse {
         val doc = app.get(mainUrl).document
         val home = ArrayList<HomePageList>()
-        
+
         val items = doc.select(".movie-item").mapNotNull {
             val title = it.select(".title").text()
             val url = it.select("a").attr("href")
             val img = it.select("img").attr("src")
-            
+
             if (title.isNotBlank() && url.isNotBlank()) {
                 newMovieSearchResponse(title, url, TvType.Movie) {
                     this.posterUrl = img
                 }
             } else null
         }
-        
+
         if (items.isNotEmpty()) {
             home.add(HomePageList("Movies", items))
         }
-        
-        return HomePageResponse(home)
+
+        // الإصلاح الأول: استخدام الطريقة الحديثة لتمرير الصفحة الرئيسية
+        return newHomePageResponse(home, false)
     }
 
     override suspend fun load(url: String): LoadResponse {
         val doc = app.get(url).document
-        
+
         val title = doc.select("h1.title").text()
         val description = doc.select(".description").text()
         val poster = doc.select(".poster img").attr("src")
         val year = doc.select(".year").text().toIntOrNull()
-        
+
         val episodes = doc.select(".episode-link").mapNotNull {
             val epUrl = it.attr("href")
             val epName = it.text()
             if (epUrl.isNotBlank()) {
-                Episode(epUrl, epName)
+                // الإصلاح الثاني: استخدام دالة newEpisode بدلاً من الاستدعاء المباشر
+                newEpisode(epUrl) {
+                    this.name = epName
+                }
             } else null
         }
-        
+
         return if (episodes.isNotEmpty()) {
             newTvSeriesLoadResponse(title, url, TvType.TvSeries, episodes) {
                 this.posterUrl = poster
@@ -70,7 +73,7 @@ class MyPlugin : MainAPI() {
             val title = it.select(".title").text()
             val url = it.select("a").attr("href")
             val img = it.select("img").attr("src")
-            
+
             if (title.isNotBlank() && url.isNotBlank()) {
                 newMovieSearchResponse(title, url, TvType.Movie) {
                     this.posterUrl = img
