@@ -25,11 +25,11 @@ subprojects {
     apply(plugin = "com.recloudstream.gradle")
 
     android {
-        compileSdkVersion(33)
+        compileSdk = 33
 
         defaultConfig {
-            minSdkVersion(21)
-            targetSdkVersion(33)
+            minSdk = 21
+            targetSdk = 33
         }
 
         compileOptions {
@@ -39,16 +39,11 @@ subprojects {
 
         kotlinOptions {
             jvmTarget = "1.8"
-            freeCompilerArgs = listOf("-Xno-call-assertions", "-Xno-param-assertions", "-Xno-receiver-assertions")
         }
     }
 
     dependencies {
-        val apk by configurations
-        val implementation by configurations
-
-        apk("com.lagradost:cloudstream3:pre-release")
-        implementation(kotlin("stdlib"))
+        compileOnly("com.lagradost:cloudstream3:pre-release")
         implementation("com.github.Blatzar:NiceHttp:0.4.4")
         implementation("org.jsoup:jsoup:1.16.2")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16.0")
