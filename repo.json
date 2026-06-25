@@ -1,6 +1,9 @@
-{
-  "name": "Bash4QI Test Plugins",
-  "description": "My Custom Arabic Extensions",
-  "manifestVersion": 1,
-  "pluginUrl": "https://raw.githubusercontent.com/Bash4QI/TestPlugins/builds/plugins.json"
-}
+[
+  {
+    "name": "Bash4QI Test Plugins",
+    "description": "My Custom Arabic Extensions",
+    "manifestVersion": 1,
+    "pluginUrl": "https://raw.githubusercontent.com/Bash4QI/TestPlugins/builds/plugins.json",
+    "status": 1
+  }
+]
