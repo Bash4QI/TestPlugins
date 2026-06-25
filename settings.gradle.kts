@@ -1,4 +1,4 @@
-rootProject.name = "CloudstreamPlugins"
+rootProject.name = "TestPlugins"
 
 val disabled = listOf<String>("ExampleProvider")
 
