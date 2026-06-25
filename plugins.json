@@ -1,9 +1,9 @@
 [
     {
-        "fileHash": "sha256-f15c3c22dc7cec9535dd397039a905d30655ef235ef52c57c3b83e573fe8fa5c",
-        "apiVersion": 2,
+        "fileHash": "sha256-dfabf9dac1d16dfcf801e1ee47a52f85babcc3b73e8d6be79335b5057eb59111",
+        "apiVersion": 1,
         "repositoryUrl": "https://github.com/Bash4QI/TestPlugins",
-        "fileSize": 8713,
+        "fileSize": 8711,
         "status": 3,
         "language": "ar",
         "authors": [
@@ -12,7 +12,7 @@
         "version": 1,
         "internalName": "ExAr",
         "description": "My Custom Arabic Extension",
-        "url": "https://cdn.jsdelivr.net/gh/Bash4QI/TestPlugins@builds/ExAr.cs3",
+        "url": "https://raw.githubusercontent.com/Bash4QI/TestPlugins/builds/ExAr.cs3",
         "name": "ExAr"
     }
 ]
