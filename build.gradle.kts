@@ -42,7 +42,7 @@ subprojects {
         // تحديد رابط مستودعك الخاص لرفع الإضافات
         setRepo("https://github.com/Bash4QI/TestPlugins")
         authors = listOf("Bash4QI")
-        setApiVersion(2)
+       
     }
 
     android {
